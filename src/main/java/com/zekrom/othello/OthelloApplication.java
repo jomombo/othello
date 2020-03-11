@@ -1,4 +1,4 @@
-package com.zekrom.othello.othello;
+package com.zekrom.othello;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Puissance 4</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+<div style="display:inline-block" >
+    <div style="display:inline-block" >
+        <table>
+            <tr th:each="i,iter: ${#numbers.sequence(4,1)}">
+                <td th:each="j,jter: ${#numbers.sequence(1,4)}">
+                    <img th:src="@{'img/4'+ ${matrice.getPawn(i-1,j-1)} + '.PNG'}"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>

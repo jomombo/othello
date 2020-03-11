@@ -1,4 +1,4 @@
-package com.zekrom.othello.othello;
+package com.zekrom.othello;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
