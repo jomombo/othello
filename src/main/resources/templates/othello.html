@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Puissance 4</title>
+    <title>Othello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
@@ -9,12 +9,28 @@
 <div style="display:inline-block" >
     <div style="display:inline-block" >
         <table>
-            <tr th:each="i,iter: ${#numbers.sequence(4,1)}">
-                <td th:each="j,jter: ${#numbers.sequence(1,4)}">
-                    <img th:src="@{'img/4'+ ${matrice.getPawn(i-1,j-1)} + '.PNG'}"/>
+            <tr th:each="i,iter: ${#numbers.sequence(8,1)}">
+                <td th:each="j,jter: ${#numbers.sequence(1,8)}">
+                    <img th:src="@{'img/4'+ ${matrice.getPawn(j-1,i-1)} + '.png'}"/>
                 </td>
             </tr>
         </table>
     </div>
+</div>
+<div style="display:inline-block;vertical-align: top;margin-top: 150px;margin-left: 160px;">
+    <div style="display: inline-block" >
+        <img th:src="@{'img/4'+${matrice.getTurn()} + '.jpg'}" />
+        <a th:href="@{/pass}" th:unless="${matrice.isGameOver()}"><button> Passer </button> </a>
+    </div>
+    <form th:unless="${matrice.isGameOver()}" method="post" th:action="@{/plays}" >
+
+        Colonne :<input type="number" name="choice"
+                        placeholder="Position between A and G"
+                        minlength="2"
+                        maxlength="2"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <span th:if="${matrice.isGameOver()}" style="color:red;" th:text="${matrice.getResult()}"></span>
 </div>
 </body>
