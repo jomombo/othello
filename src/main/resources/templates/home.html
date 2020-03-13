@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Othello</title>
+</head>
+<body>
+<h1>Menu Principal</h1>
+<ul>
+    <li th:each="game : ${games}">
+<a th:href="@{'/othello/' + ${game.gameId}}" th:text="'Partie :' + ${game.gameId}"/>
+    </li>
+    <li>
+        <a th:href="@{/new}" >Nouvelle partie</a>
+    </li>
+</ul>
+</body>
+</html>

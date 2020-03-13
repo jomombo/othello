@@ -1,19 +1,40 @@
 package com.zekrom.othello.model;
 
+import org.hibernate.annotations.GeneratorType;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 import static com.zekrom.othello.model.Pawn.*;
 import static com.zekrom.othello.model.Turn.BLACK_PLAYER;
 import static com.zekrom.othello.model.Turn.WHITE_PLAYER;
 
+@Entity
 public class Board implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long boardId;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_game")
+    private Game game;
+
+    public Board() {
+    }
 
     private static final String DRAW = "Egalité";
     private static final String BLACK_WIN = "Victoire joueur noir";
     private static final String WHITE_WIN = "Victoire joueur blanc";
+
+    @Transient
     private Pawn[][] matrice;
 
+    @Enumerated(EnumType.STRING)
     private Turn turn;
+
+    private String pawns;
 
     private boolean isGameOver = false;
     private boolean blackDown = false;
@@ -230,5 +251,42 @@ public class Board implements Serializable {
 
     public String getResult(){
         return gameStatus;
+    }
+
+    public void cryptMatrice() {
+        String base = "";
+        int i=0,j=0;
+        while (i < matrice.length) {
+            while (j < matrice[i].length) {
+                base = base.concat(getPawn(i, j).name().substring(0,1));
+                j++;
+            }
+            j=0;
+            i++;
+        }
+        pawns = base;
+    }
+
+    public void decryptMatrice() {
+        int i=0;
+        Pawn[][] mat = new Pawn[8][8];
+        while (i < 64) {
+            mat[i / 8][i % 8] = complete(pawns.substring(i,i+1));
+            i++;
+        }
+        matrice = mat;
+    }
+
+    private Pawn complete(String substring) {
+        if("V".equals(substring))
+            return VOID;
+        else if("B".equals(substring))
+            return BLACK;
+        else
+            return WHITE;
+    }
+
+    public Pawn[][] getMatrice() {
+        return matrice;
     }
 }

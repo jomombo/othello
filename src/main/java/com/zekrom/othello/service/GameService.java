@@ -1,6 +1,6 @@
 package com.zekrom.othello.service;
 
-import com.zekrom.othello.controller.Game;
+import com.zekrom.othello.model.Game;
 import com.zekrom.othello.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,4 +27,7 @@ public class GameService {
         return gameRepository.findById(id);
     }
 
+    public int count() {
+        return (int) gameRepository.count();
+    }
 }
